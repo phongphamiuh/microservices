@@ -1,0 +1,53 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: order-service
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/orderservice?createDatabaseIfNotExist=true
+    username: root
+    password: 123456
+#    initialization-mode: always
+
+eureka:
+  client:
+    serviceUrl:
+      registerWithEureka: true
+      fetchRegistry: true
+      defaultZone: http://localhost:8070/eureka/
+
+security:
+  oauth2:
+    resource:
+      token-info-uri: http://localhost:8080/oauth/check_token
+    client:
+      client-id: test
+      client-secret: temp
+  public-pattern: /api/public/**
+  auth:
+    username: user_name
+    url: http://localhost:8080/oauth/check_token
+    client_id: test
+    client_password: temp
+    connection_timeout: 60
+    read_timeout: 60
+    whitelist: >
+      /,
+      /v2/api-docs,
+      /swagger-resources,
+      /swagger-resources/**,
+      /configuration/ui,
+      /actuator/**,
+      /configuration/security,
+      /swagger-ui.html,
+      /webjars/**,
+      /api/public/**
+ #     /api/**
